@@ -25,21 +25,35 @@ function createFormFromJsonFile() {
 
   data.forEach((item) => {
     const title = `Q${item.questionNumber}: ${item.question}`;
-    const shuffledChoices = shuffleArray([...item.choices]); // シャッフル用にコピーを作成
+    const originalChoices = item.choices;
+    const correctAnswers = item.answer; // 正解リスト（1つまたは複数）
     const isMultiple = item.answer.length > 1;
 
+    // 選択肢をランダムに並び替え
+    const shuffledChoices = shuffleArray([...originalChoices]);
+
     if (isMultiple) {
-      form
-        .addCheckboxItem()
-        .setTitle(title)
-        .setChoiceValues(shuffledChoices)
-        .setPoints(1);
+      const checkboxItem = form.addCheckboxItem().setTitle(title).setPoints(1);
+      const choices = shuffledChoices.map((choice) =>
+        checkboxItem.createChoice(choice, correctAnswers.includes(choice))
+      );
+      checkboxItem.setChoices(choices);
+      checkboxItem.setCorrectAnswers(
+        choices.filter((choice) => correctAnswers.includes(choice.getValue()))
+      );
     } else {
-      form
-        .addMultipleChoiceItem()
-        .setTitle(title)
-        .setChoiceValues(shuffledChoices)
-        .setPoints(1);
+      const mcItem = form.addMultipleChoiceItem();
+      mcItem.setTitle(title).setPoints(1);
+      const choices = shuffledChoices.map((choice) =>
+        mcItem.createChoice(choice)
+      );
+      mcItem.setChoices(choices);
+      const correct = choices.find(
+        (choice) => choice.getValue() === correctAnswers[0]
+      );
+      // if (correct) {
+      //   mcItem.setCorrectAnswer(correct);
+      // }
     }
   });
 

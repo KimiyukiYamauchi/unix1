@@ -16,6 +16,14 @@ vagrant init centos/stream9
 centos/stream9 は公式の CentOS Stream 9 の Box です。  
 → [Vagrant Cloud の公式 Box](https://portal.cloud.hashicorp.com/vagrant/discover/centos/stream9)
 
+### 2.2 Vagrantfileの編集
+最下行の「end」の前に以下の2行がない場合は追加する
+
+```
+config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_version: "4", nfs_udp: false
+  config.ssh.forward_agent = true
+```
+
 ### 3.仮想マシンを起動
 
 ```bash

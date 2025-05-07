@@ -1,0 +1,52 @@
+[
+  {
+    "questionNumber": 1,
+    "question": "現在の日時をターミナルに表示する最も基本的なコマンドを記述しなさい。",
+    "answer": "date"
+  },
+  {
+    "questionNumber": 2,
+    "question": "現在の日時を「2025-05-06」のように「年-月-日」形式で表示するコマンドを記述しなさい。",
+    "answer": "date \"+%Y-%m-%d\""
+  },
+  {
+    "questionNumber": 3,
+    "question": "昨日の日付を表示するコマンドを記述しなさい",
+    "answer": "date --date=\"yesterday\""
+  },
+  {
+    "questionNumber": 4,
+    "question": "「2024年12月31日 23時59分59秒」が何曜日にあたるかを表示するコマンドを記述しなさい。",
+    "answer": "ate -d \"2024-12-31 23:59:59\" \"+%A\""
+  },
+  {
+    "questionNumber": 5,
+    "question": "現在のUNIXタイムスタンプ（1970年1月1日からの経過秒数）を表示するコマンドを記述しなさい。",
+    "answer": "date +%s"
+  },
+  {
+    "questionNumber": 6,
+    "question": "現在の時刻を「時:分」の形式（例：10:45）で表示するコマンドを記述しなさい。",
+    "answer": "date \"+%H:%M\""
+  },
+  {
+    "questionNumber": 7,
+    "question": "「2025年1月1日 00:00:00」に以下のコマンドを実行したときの出力結果は何曜日になりますか？\n\"date -d '2025-01-01 00:00:00' '+%A'\"",
+    "answer": "Friday"
+  },
+  {
+    "questionNumber": 8,
+    "question": "文字列「Hello, Linux!」を画面に表示する echo コマンドを記述しなさい。",
+    "answer": "echo \"Hello, Linux!\""
+  },
+  {
+    "questionNumber": 9,
+    "question": "変数 name に Taro を代入し、「Hello, Taro!」と表示するコマンドを記述しなさい。",
+    "answer": "name=\"Taro\"\necho \"Hello, $name!\""
+  },
+  {
+    "questionNumber": 10,
+    "question": "改行せずに「Loading...」という文字を表示するコマンドを記述しなさい。",
+    "answer": "echo -n \"Loading...\""
+  }
+]

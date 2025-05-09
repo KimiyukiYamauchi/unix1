@@ -18,12 +18,22 @@ function gradeAllResponses() {
         const qNum = match[1]; // Q1など
         const 判定列名 = `判定_${qNum}`;
         const 判定ColIndex = headers.findIndex((h) => h === 判定列名);
-        const studentSQL = rowData[colIndex];
-        const correctSQL = correctAnswers[qNum];
+        const studentCommand = rowData[colIndex];
+        const correctCommand = correctAnswers[qNum];
 
-        if (correctSQL && 判定ColIndex !== -1 && studentSQL) {
-          const feedback = getSQLJudgementWithChatGPT(studentSQL, correctSQL);
-          sheet.getRange(row + 1, 判定ColIndex + 1).setValue(feedback); // +1は1行目がヘッダーのため
+        if (correctCommand && 判定ColIndex !== -1) {
+          if (studentCommand) {
+            const feedback = getLinuxCommandJudgementWithChatGPT(
+              studentCommand,
+              correctCommand
+            );
+            sheet.getRange(row + 1, 判定ColIndex + 1).setValue(feedback);
+          } else {
+            // 未入力時の処理を追加
+            sheet
+              .getRange(row + 1, 判定ColIndex + 1)
+              .setValue("判定：不正解\n理由：未入力のため");
+          }
         }
       }
     });
@@ -33,7 +43,7 @@ function gradeAllResponses() {
 }
 
 function getCorrectAnswersFromJson() {
-  const fileName = "quiz_data.json";
+  const fileName = "unix1_chap02.json";
   const files = DriveApp.getFilesByName(fileName);
 
   if (!files.hasNext()) {
@@ -54,24 +64,35 @@ function getCorrectAnswersFromJson() {
   return correctAnswers;
 }
 
-function getSQLJudgementWithChatGPT(studentSQL, correctSQL) {
-  const apiKey = ScriptProperties.getProperty("API_KEY"); // ← ここにAPIキーをセット
+function getLinuxCommandJudgementWithChatGPT(studentCommand, correctCommand) {
+  // const apiKey = ScriptProperties.getProperty('API_KEY'); // ← APIキーを取得
+  const apiKey = PropertiesService.getScriptProperties().getProperty("API_KEY"); // ← APIキーを取得
+
   const prompt = `
-以下のSQL文が同じ意味を持つか判定してください。
+あなたは優秀なLinux講師です。
+学生が提出した「学生の解答」と「模範解答」を比較し、問題点を指摘してください。
+「学生の解答」は「あなたの解答」として扱ってください。
 
 【学生の解答】
-${studentSQL}
+${studentCommand}
 
 【模範解答】
-${correctSQL}
+${correctCommand}
 
 次の形式で出力してください：
 判定：正解 または 不正解
 理由：○○○
+
+### 理由の例
+- あなたの解答は模範解答と完全に一致しており、Linuxコマンドとして正しく機能します。
+- あなたの解答では\`ls -l\`の代わりに\`ls\`だけを使用しています。\`-l\`オプションが欠けているため、詳細表示が行われません。
+- あなたの解答ではディレクトリを削除する際に\`rm\`コマンドを使っていますが、模範解答では\`rm -r\`を使って再帰的に削除しています。
+- あなたの解答にはスペルミスがあります。\`pwd\`の代わりに\`pdd\`と入力されており、このコマンドは存在しません。
+- あなたの解答は構文上誤りがあり、Linux上でそのまま実行しても動作しません。
 `;
 
   const payload = {
-    model: "gpt-4",
+    model: "gpt-4.1-mini",
     messages: [{ role: "user", content: prompt }],
     temperature: 0.2,
   };

@@ -17,7 +17,7 @@
   {
     "questionNumber": 4,
     "question": "「2024年12月31日 23時59分59秒」が何曜日にあたるかを表示するコマンドを記述しなさい。",
-    "answer": "ate -d \"2024-12-31 23:59:59\" \"+%A\""
+    "answer": "date -d \"2024-12-31 23:59:59\" \"+%A\""
   },
   {
     "questionNumber": 5,
@@ -32,7 +32,7 @@
   {
     "questionNumber": 7,
     "question": "「2025年1月1日 00:00:00」に以下のコマンドを実行したときの出力結果は何曜日になりますか？\n\"date -d '2025-01-01 00:00:00' '+%A'\"",
-    "answer": "Friday"
+    "answer": "Wednesday"
   },
   {
     "questionNumber": 8,

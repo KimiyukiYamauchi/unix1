@@ -1,5 +1,5 @@
 function createSQLSubmissionFormFromData() {
-  const fileName = "unix1_chap02.json";
+  const fileName = "unix1_chap03.json";
   const files = DriveApp.getFilesByName(fileName);
 
   if (!files.hasNext()) {
@@ -12,9 +12,9 @@ function createSQLSubmissionFormFromData() {
   const data = JSON.parse(content);
 
   // フォーム作成
-  const chapter = "Chapter02 シェルって何だろう?";
+  const chapter = "Chapter03 シェルの便利な機能";
   const form = FormApp.create(`【${chapter}】課題提出フォーム`);
-  form.setDescription("各問題に対してSQL文を記述してください。");
+  form.setDescription("各問題に対してコマンドを記述してください。");
 
   // 🔐 Googleログインユーザーのメールを自動収集
   form.setCollectEmail(true); // ← これで「メールアドレス」列が自動的に追加されます

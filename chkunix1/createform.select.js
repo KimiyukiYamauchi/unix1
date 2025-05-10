@@ -11,8 +11,14 @@ function createFormFromJsonFile() {
   const content = file.getBlob().getDataAsString();
   const data = JSON.parse(content); // ← JSONをオブジェクト化
 
-  const form = FormApp.create("Unix1 Quiz Form"); // フォームのタイトルを指定
+  // フォーム作成
+  const chapter = "Chapter03 シェルの便利な機能";
+  const form = FormApp.create(`【${chapter}】課題提出フォーム`);
+  form.setDescription("選択問題です。正しい選択肢を選んでください。");
   form.setIsQuiz(true);
+
+  // 🔐 Googleログインユーザーのメールを自動収集
+  form.setCollectEmail(true); // ← これで「メールアドレス」列が自動的に追加されます
 
   // Fisher-Yatesアルゴリズムで配列をシャッフル
   function shuffleArray(array) {

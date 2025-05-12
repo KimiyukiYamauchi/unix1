@@ -21,7 +21,7 @@ sudo localectl set-locale LANG=ja_JP.UTF-8
 
 ```
 
-### manの日本語化
+## manの日本語化
 
 ### Ubuntu
 
@@ -38,3 +38,25 @@ cd man-pages-ja
 # 必要なセクションをlessやmanで読む
 
 ```
+
+## ImageMagickのインストール
+
+### Ubuntu
+
+``` bash
+sudo apt update
+sudo apt install imagemagick
+
+```
+
+### CentOS
+
+``` bash
+sudo dnf install epel-release
+sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+sudo dnf makecache
+dnf --enablerepo=remi search imagemagick
+sudo dnf --enablerepo=remi install ImageMagick7
+
+```
+

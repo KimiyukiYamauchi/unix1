@@ -133,13 +133,18 @@ cutting board
 catapult
 
 ```
-
+- 最長一致
 ```bash
 echo '<tag1><tag2><tag3><tag4>' | grep -o "<.*>"
 ```
 
 ```bash
 echo '<tag1><tag2><tag3><tag4>' | grep -oE "<[^<]+>"
+```
+
+- 最短一致
+```bash
+echo '<tag1><tag2><tag3><tag4>' | grep -oP '<.+?>'
 ```
 
 ```bash

@@ -1,2 +1,3 @@
 download/
-*.jsontext.sample/
+*.json
+text.sample/

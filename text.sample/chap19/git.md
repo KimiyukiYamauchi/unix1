@@ -372,7 +372,7 @@ git push
 cd ..
 ```
 
-#### github からクローンする
+#### github からクローンする **(クローン元のgithubは各自のものを使用)**
 
 ```bash
 git clone git@github.com:KimiyukiYamauchi/unix1.2025.y.git user2
